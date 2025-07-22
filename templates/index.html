@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Investor Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+  <h1 class="mb-4">Investor Dashboard</h1>
+
+  <form class="row g-3 mb-4" method="post" action="/add_investor">
+    <div class="col-md-5">
+      <input type="text" name="name" class="form-control" placeholder="Investor Name" required>
+    </div>
+    <div class="col-md-4">
+      <select name="risk" class="form-select">
+        <option value="Conservative">Conservative</option>
+        <option value="Moderate">Moderate</option>
+        <option value="Aggressive">Aggressive</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-primary w-100">Add Investor</button>
+    </div>
+  </form>
+
+  <div class="row">
+    {% for investor in investors %}
+    <div class="col-md-6 col-lg-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ investor[1] }}</h5>
+          <p class="card-text">
+            Risk: {{ investor[2] }}<br>
+            Sector: {{ investor[3] or 'N/A' }}<br>
+            Avg Investment: ${{ investor[4] or 'N/A' }}<br>
+            Hold Days: {{ investor[5] or 'N/A' }}
+          </p>
+          <a href="/investor/{{ investor[0] }}" class="btn btn-outline-primary w-100">View Profile</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</body>
+</html>
